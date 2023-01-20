@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import CustomUser
-from .forms import UserForm
+# from .models import CustomUser
+from .forms import SignupForm
 
 # Create your views here.
 
@@ -13,45 +13,12 @@ def landing_view(request):
 
 
 
-# def register_view(request):
-#     form = UserForm()
-#     if request.method == 'POST':
-#         form = UserForm(request.POST)
-
-#         if form.is_valid():
-#             form.save()
-#             email = form.cleaned_data["email"]
-#             password = form.cleaned_data["password"]
-#             thisuser = authenticate(email=email, password=password)
-#             login(request,thisuser)
-#             return redirect('/home')
-        
-#     return render(request, 'register.html', {"form": form})
-
-
-
-
 def register_view(request):
-    form = UserForm()
+    form = SignupForm()
     if request.method == 'POST':
-        form = UserForm(request.POST)
-
-        year = request.POST["year"]
-        program = request.POST["program"]
-        degree = request.POST["degree"]
-
-        # if form.cleaned_data["password1"] != form.cleaned_data["password2"]:
-        #     return render(request, 'register.html', {"error": "password not matches"})
-
+        form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-
-            thisuser = User.objects.get(username=form.cleaned_data["username"])
-            thisuser.profile.degree = degree
-            thisuser.profile.year = year
-            thisuser.profile.program = program
-            thisuser.profile.save()
-
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             thisuser = authenticate(request,username=username, password=password)
@@ -59,6 +26,38 @@ def register_view(request):
             return redirect('/home')
         
     return render(request, 'register.html', {"form": form})
+
+
+
+
+# def register_view(request):
+    # form = UserForm()
+    # if request.method == 'POST':
+    #     form = UserForm(request.POST)
+
+    #     year = request.POST["year"]
+    #     program = request.POST["program"]
+    #     degree = request.POST["degree"]
+
+    #     # if form.cleaned_data["password1"] != form.cleaned_data["password2"]:
+    #     #     return render(request, 'register.html', {"error": "password not matches"})
+
+    #     if form.is_valid():
+    #         form.save()
+
+    #         thisuser = User.objects.get(username=form.cleaned_data["username"])
+    #         thisuser.profile.degree = degree
+    #         thisuser.profile.year = year
+    #         thisuser.profile.program = program
+    #         thisuser.profile.save()
+
+    #         username = form.cleaned_data["username"]
+    #         password = form.cleaned_data["password"]
+    #         thisuser = authenticate(request,username=username, password=password)
+    #         login(request,thisuser)
+    #         return redirect('/home')
+        
+    # return render(request, 'register.html', {"form": form})
 
 
 
@@ -141,4 +140,5 @@ def change_pass(request):
         myuser.save()
     else:
         return redirect('/login')
+
         
