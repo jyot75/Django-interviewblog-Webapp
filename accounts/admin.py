@@ -1,6 +1,35 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+
+from .models import NewUser
+
+
+fields = list(UserAdmin.fieldsets)
+fields[1] = (
+            'Personal Info',
+            {
+                'fields': (
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'degree',
+                    'year',
+                    'program'
+                )
+            }
+    )
+UserAdmin.fieldsets = tuple(fields)
+
+class Customview(admin.ModelAdmin):
+    list_display = ['username','first_name','last_name','email','degree', 'year', 'program']
+
+admin.site.register(NewUser,Customview)
+
+
+
+
+
+
 # from .models import CustomUser
 
 # class AccountInline(admin.StackedInline):
@@ -23,11 +52,3 @@ from django.contrib.auth.models import User
 # admin.site.unregister(User)
 # admin.site.register(User, CustomizedUserAdmin)
 # admin.site.register(CustomUser,Customview)
-
-
-
-from .models import Profile
-
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'email']
-admin.site.register(Profile,ContactAdmin)

@@ -1,32 +1,22 @@
 from django import forms
-from .models import Profile
-from django.contrib.auth.models import User
+from .models import NewUser
+from django.contrib.auth.forms import UserCreationForm
 
 
-class SignupForm(forms.Form):
+class SignupForm(UserCreationForm):
     first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     last_name = forms.CharField(label='Last name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    username = forms.IntegerField(label='Student ID', min_value=201900000)
     email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    conf_password = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     degree = forms.ChoiceField(label='Select Degree',choices=(("1",'B.TECH'),("2",'M.TECH'),("3",'MSC'))) 
     year = forms.IntegerField(label='Gradution Year', min_value=2021)
     program = forms.CharField(label='Program of Study', widget=forms.TextInput(attrs={'class' : 'form-control'}))
 
     class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'degree', 'year', 'program')
-        
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data["email"]
-        user.first_name = self.cleaned_data["first_name"]
-        user.last_name = self.cleaned_data["last_name"]
-        if commit:
-            user.save()
-        profile = Profile.objects.create(user=user, email=user.email)
-        profile.save()
-        return user
+        model = NewUser
+        fields = ('first_name', 'last_name','username', 'email', 'password1', 'password2', 'degree', 'year', 'program')
 
 
 
