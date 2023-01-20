@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %} blog • Register {% endblock title %}
+
+
+{% block content %}
+
+{% if error %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+
+<form class="m-5" method='post' action="/register/">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    {% comment %} {{ u2_form.as_p }} {% endcomment %}
+    
+
+    {% comment %} <div class="form-group m-4">
+      <label for="exampleInputName1">First Name</label>
+      <input type="text" class="form-control" id="exampleInputName1" name="f_name" required>
+    </div>
+
+    <div class="form-group m-4">
+      <label for="exampleInputName2">Last Name</label>
+      <input type="text" class="form-control" id="exampleInputName2" name="l_name" required>
+    </div>
+
+    <div class="form-group m-4">
+        <label for="st_id">Student ID:</label>
+        <input type="number" name="student_id" id="st_id" required>
+    </div>
+
+    <div class="form-group m-4">
+      <label for="exampleInputEmail1">Institute Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="email" required>
+    </div>
+
+    <div class="form-group m-4">
+      <label for="exampleInputPass1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPass1" name="password" required>
+    </div>
+
+    <div class="form-group m-4">
+      <label for="exampleInputPass2">Confirm Password</label>
+      <input type="password" class="form-control" id="exampleInputPass2" name="conf_password" required>
+    </div> {% endcomment %}
+
+
+    <div class="form-group m-4">
+        <label for="Inputdeg">Select Degree:</label>
+        <select name="degree" id="Inputdeg" required>
+            <option value="1">B.TECH</option>
+            <option value="2">M.TECH</option>
+            <option value="3">MSC</option>
+        </select>
+    </div>
+
+    <div class="form-group m-4">
+        <label for="grad_year">Gradution Year:</label>
+        <input type="number" name="year" id="grad_year" min=2021 required>
+    </div>
+
+    <div class="form-group m-4">
+        <label for="Inputprog">Program of Study</label>
+        <input class="form-control" type="text" name="program" id="Inputprog" required>
+    </div>
+
+
+
+    <div class="form-group m-4">
+        <button class="btn btn-primary" type="submit">REGISTER</button>
+    </div>
+
+</form>
+
+<a href="/login" class="text-success m-5">Already have account, Login here</a>
+
+{% endblock content %}
+

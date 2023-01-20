@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}BlogIt • Post New Experience{% endblock title %}
+
+{% block content %}
+
+
+<form action="" method="post">
+    
+    <div class="form-group m-4">
+        <label for="companyName">Company Name</label>
+        <input type="text" class="form-control" id="companyName" name="company">
+    </div>
+
+    <div class="form-group m-4">
+        <label for="offer_year">Year</label>
+        <input type="number" name="job_year" class="form-control" id="offer_year" min=2021>
+    </div>
+
+    <div class="form-group m-4">
+        <label for="selectoffer">Select Offer Type</label>
+        <select name="job_offer" id="selectoffer">
+            <option value="">Summer Internship</option>
+            <option value="">Winter Internship</option>
+            <option value="">Full Time Job</option>
+        </select>
+    </div>
+    
+    <div class="form-group m-4">
+        <label for="Inputjob">Job Profile</label>
+        <input type="text" class="form-control" id="Inputjob" name="job_profile">
+    </div>
+
+    <div class="form-group m-4">
+        Text-Editor
+    </div>
+
+    
+    <button class="btn btn-danger" type="submit"><a href="/postnew">RESET</a></button>
+    <button class="btn btn-success" type="submit">POST EXPERIENCE</button>
+    
+</form>
+
+{% endblock content %}

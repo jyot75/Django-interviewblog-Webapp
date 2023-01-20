@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}blog • Home{% endblock title %}
+
+{% block content %}
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Blog-it!!!</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Explore</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Add New Experience</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">My Experiences</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Bookmarks</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Profile
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="changepass">Change Passwoe</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form class="d-flex" action="logout/" method="post">
+        {% csrf_token %}
+        <button class="btn btn-outline-danger" type="submit">LOGOUT</button>
+      </form>
+
+    </div>
+  </div>
+</nav>
+
+
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+{% endif %}
+  
+
+{% endblock content %}

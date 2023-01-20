@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock title %}
+
+{% block content %} 
+
+{% if error %}
+    <p class="text-danger">{{error}}</p>
+{% endif %}
+
+<div class="m-5">
+    <form  method='post' action='/login/'>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInput" class="form-label">Email address / Student ID</label>
+            <input type="text" class="form-control" id="exampleInput" name="email_user" required>
+        </div>
+        {% comment %} <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>
+        </div> {% endcomment %}
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+        </div>
+        <div class="mb-5">
+            <button type="submit" class="btn btn-primary">LOGIN</button>
+        </div>
+        <a href="/register">don't have account, Register here</a>
+    </form>
+</div>
+
+
+
+
+
+{% endblock content %}
