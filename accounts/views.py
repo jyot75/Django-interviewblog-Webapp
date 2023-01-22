@@ -22,83 +22,10 @@ def register_view(request):
             password = form.cleaned_data["password1"]
             thisuser = authenticate(request,username=username, password=password)
             login(request,thisuser)
+            messages.success(request, 'Account created successfully for Blog-it!!!')
             return redirect('/home')
         
-    return render(request, 'register.html', {"form": form})
-
-
-
-
-# def register_view(request):
-    # form = UserForm()
-    # if request.method == 'POST':
-    #     form = UserForm(request.POST)
-
-    #     year = request.POST["year"]
-    #     program = request.POST["program"]
-    #     degree = request.POST["degree"]
-
-    #     # if form.cleaned_data["password1"] != form.cleaned_data["password2"]:
-    #     #     return render(request, 'register.html', {"error": "password not matches"})
-
-    #     if form.is_valid():
-    #         form.save()
-
-    #         thisuser = User.objects.get(username=form.cleaned_data["username"])
-    #         thisuser.profile.degree = degree
-    #         thisuser.profile.year = year
-    #         thisuser.profile.program = program
-    #         thisuser.profile.save()
-
-    #         username = form.cleaned_data["username"]
-    #         password = form.cleaned_data["password"]
-    #         thisuser = authenticate(request,username=username, password=password)
-    #         login(request,thisuser)
-    #         return redirect('/home')
-        
-    # return render(request, 'register.html', {"form": form})
-
-
-
-
-# def register_view(request):
-
-#     if request.method == 'POST':
-#         id = request.POST["student_id"]
-#         f_name = request.POST["f_name"]
-#         l_name = request.POST["l_name"]
-#         email = request.POST["email"]
-#         password = request.POST["password"]
-#         conf_password = request.POST["conf_password"]
-#         year = request.POST["year"]
-#         program = request.POST["program"]
-#         degree = request.POST["degree"]
-
-#         if password != conf_password:
-#             return render(request, 'register.html', {"error": "password not matches"})
-
-#         if User.objects.filter(email=email).exists():
-#             return render(request, 'register.html', {"error": "email is already in use"})
-
-#         myuser = User.objects.create_user(username=id , email=email, password=password)
-#         myuser.first_name = f_name
-#         myuser.last_name = l_name
-#         myuser.save()
-
-
-#         thisuser = User.objects.get(username=myuser.username)
-#         thisuser.profile.degree = degree
-#         thisuser.profile.year = year
-#         thisuser.profile.program = program
-#         thisuser.profile.save()
-
-#         messages.success(request, 'Account created successfully for Blog-it!!!')
-#         thatuser = authenticate(request, username= myuser.username, password= myuser.password)
-#         login(request, thatuser)
-#         return redirect("/home")
-
-#     return render(request, 'register.html')
-
+    return render(request, 'register.html', {"form": form, "error_dict": form.errors})
 
 
 
@@ -109,7 +36,6 @@ def login_view(request):
 
     context = {}
     if request.method == 'POST':
-        # username = request.POST["username"]
         email_user = request.POST["email_user"]
         password = request.POST["password"]
 
@@ -132,6 +58,8 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
         return redirect("/login")
+
+
 
 
 def change_pass(request):

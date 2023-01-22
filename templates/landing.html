@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock title %}
+{% block title %}Login or Register{% endblock title %}
 
 {% block content %}
 
 <div class="d-flex justify-content-center mt-5">
-    <a href="/login"><button class="btn btn-primary m-5">LOGIN</button></a>
-    <a href="/register"><button class="btn btn-primary m-5">REGISTER</button></a>
+    <a href={% url 'login' %}><button class="btn btn-primary m-5">LOGIN</button></a>
+    <a href={% url 'register' %}><button class="btn btn-primary m-5">REGISTER</button></a>
 </div>
 
 {% endblock content %}

@@ -1,18 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %} blog • Register {% endblock title %}
+{% block title %} Register {% endblock title %}
 
 
 {% block content %}
-
-{% if errorlist %}
-{% for error in errorlist %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>{{error}}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-{% endfor %}
-{% endif %}
 
 
 
@@ -81,7 +72,7 @@
 
 </form>
 
-<a href="/login" class="text-success m-5">Already have account, Login here</a>
+<a href={% url 'login' %} class="text-success m-5">Already have account, Login here</a>
 
 {% endblock content %}
 

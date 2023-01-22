@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}BlogIt • Add New Experience{% endblock title %}
+
+{% load static %}
+
+{% block content %}
+
+<link href="{% static 'css/add_new_experience.css' %}" rel="stylesheet">
+
+<div class="d-flex justify-content-center my-5"><h2><u>Add Your Interview Experience</u></h2></div>
+
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+{% endif %}
+
+
+
+<form action="" method="post" onsubmit='return copyContent()'>
+    {% csrf_token %}
+
+    <div class="form-group m-4">
+        <label for="companyName">Company Name</label>
+        <input type="text" class="form-control" id="companyName" name="company">
+    </div>
+
+    <div class="form-group m-4">
+      <label for="selectoffer">Select Offer Type</label>
+      <select id="selectoffer" name="job_offer">
+          <option value="1">Summer Internship</option>
+          <option value="2">Winter Internship & Job</option>
+          <option value="3">Job</option>
+          <option value="4">Winter Internship Only</option>
+      </select>
+    </div>
+
+    <div class="form-group m-4">
+        <label for="offer_month">Month and Year</label>
+        <input type="month" class="form-control" id="offer_month" name="job_month">
+    </div>
+
+    
+    
+    <div class="form-group m-4">
+        <label for="Inputjob">Job Profile</label>
+        <input type="text" class="form-control" id="Inputjob" name="job_profile">
+    </div>
+
+    <hr>
+    <div class="form-group m-4">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title">
+    </div>
+    <textarea name="body_content" id="my-textarea" cols="30" rows="10" hidden></textarea>
+    <div class="m-3 d-flex justify-content-center">
+        <a href={% url 'add_new_experience' %} class="btn btn-danger m-2">RESET</a>
+        <input type="submit" class="btn btn-success m-2" value="POST EXPERIENCE">
+    </div>
+</form>
+
+
+<div class="m-4"> 
+    <div class="container">
+        <div class="options">
+          <!-- Text Format -->
+          
+          <button id="bold" class="option-button format">
+            <i class="fa-solid fa-bold"></i>
+          </button>
+          <button id="italic" class="option-button format">
+            <i class="fa-solid fa-italic"></i>
+          </button>
+          <button id="underline" class="option-button format">
+            <i class="fa-solid fa-underline"></i>
+          </button>
+          <button id="strikethrough" class="option-button format">
+            <i class="fa-solid fa-strikethrough"></i>
+          </button>
+          <button id="superscript" class="option-button script">
+            <i class="fa-solid fa-superscript"></i>
+          </button>
+          <button id="subscript" class="option-button script">
+            <i class="fa-solid fa-subscript"></i>
+          </button>
+          <!-- List -->
+          <button id="insertOrderedList" class="option-button">
+            <div class="fa-solid fa-list-ol"></div>
+          </button>
+          <button id="insertUnorderedList" class="option-button">
+            <i class="fa-solid fa-list"></i>
+          </button>
+          <!-- Undo/Redo -->
+          <button id="undo" class="option-button">
+            <i class="fa-solid fa-rotate-left"></i>
+          </button>
+          <button id="redo" class="option-button">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+          <!-- Link -->
+          <button id="createLink" class="adv-option-button">
+            <i class="fa fa-link"></i>
+          </button>
+          <button id="unlink" class="option-button">
+            <i class="fa fa-unlink"></i>
+          </button>
+          <!-- Alignment -->
+          <button id="justifyLeft" class="option-button align">
+            <i class="fa-solid fa-align-left"></i>
+          </button>
+          <button id="justifyCenter" class="option-button align">
+            <i class="fa-solid fa-align-center"></i>
+          </button>
+          <button id="justifyRight" class="option-button align">
+            <i class="fa-solid fa-align-right"></i>
+          </button>
+          <button id="justifyFull" class="option-button align">
+            <i class="fa-solid fa-align-justify"></i>
+          </button>
+          <button id="indent" class="option-button spacing">
+            <i class="fa-solid fa-indent"></i>
+          </button>
+          <button id="outdent" class="option-button spacing">
+            <i class="fa-solid fa-outdent"></i>
+          </button>
+          <!-- Headings -->
+          <select id="formatBlock" class="adv-option-button">
+            <option value="H1">H1</option>
+            <option value="H2">H2</option>
+            <option value="H3">H3</option>
+            <option value="H4">H4</option>
+            <option value="H5">H5</option>
+            <option value="H6">H6</option>
+          </select>
+          <!-- Font -->
+          <select id="fontName" class="adv-option-button"></select>
+          <select id="fontSize" class="adv-option-button"></select>
+          <!-- Color -->
+          <div class="input-wrapper">
+            <input type="color" id="foreColor" class="adv-option-button" />
+            <label for="foreColor">Font Color</label>
+          </div>
+          <div class="input-wrapper">
+            <input type="color" id="backColor" class="adv-option-button" />
+            <label for="backColor">Highlight Color</label>
+          </div>
+        </div>
+        <div id="text-input" contenteditable="true"></div>
+      </div>     
+</div>
+
+
+<script src="{% static '/Javascript/add_new_experience.js' %}"></script>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+	
