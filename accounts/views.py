@@ -17,6 +17,9 @@ def register_view(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
+            # email = form.cleaned_data["email"]
+            # if not email.endswith('@daiict.ac.in'):
+            #     return redirect('login/')
             form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]

@@ -17,7 +17,7 @@
     align-items: center;
     gap: 15px;
   }
-  button {
+  .c_button {
     height: 28px;
     width: 28px;
     display: grid;

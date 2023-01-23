@@ -59,21 +59,22 @@
 {% for post in obj_list %}
 
   <div class="card m-4">
+    <div class="card-header">
+      <h2 class="card-title"> {{ post.title }} </h2>
+      <p class="card-text"><small class="text-muted">by, {{ post.author.first_name }} {{ post.author.last_name }}</small></p>
+    </div>
     <div class="card-body">
-      <div class="d-flex justify-content-between">
-        <h2 class="card-title"> {{ post.title }} </h2>
-        <p class="card-text"><small class="text-muted">by, {{ post.author.first_name }} {{ post.author.last_name }}</small></p>
-      </div>
-  
-      {% comment %} <p class="card-text">{% autoescape off %} {{ post.body }} {% endautoescape %}</p>  {% endcomment %}
-      
+{%comment%}<p class="card-text">{% autoescape off %} {{post.body}} {% endautoescape %}</p>{%endcomment%}
+{% comment %} {{ post.body | truncatewords:100 }} {% endcomment %}
       <p class="card-text">{{ post.body |safe }}</p> 
-      <a href={% url 'article_details' post.pk %} class="btn btn-info">Read Full Post</a> 
+      <div class="d-flex justify-content-between mt-4">
+        <a href={% url 'article_details' post.pk %} class="btn btn-secondary">Read Full Post</a> 
+        <p class="text-secondary">Last upadated on</p>
+      </div>
     </div>
   </div>
 
 {% endfor %}
 
-{% comment %} {{ post.body|truncatewords:100 }}  for cut first 100 words {% endcomment %}
 
 {% endblock content %}
