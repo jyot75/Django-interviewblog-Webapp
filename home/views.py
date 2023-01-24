@@ -1,10 +1,14 @@
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.views.generic import CreateView,ListView,DetailView, DeleteView
+from django.views.generic import CreateView,ListView,DetailView, DeleteView, UpdateView
 from .models import BlogPost
-from django.utils import timezone
+# from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from .forms import BlogForm
+from datetime import datetime
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -13,7 +17,7 @@ class list_view(LoginRequiredMixin, ListView):
     model = BlogPost
     template_name = 'home.html'
     context_object_name = 'obj_list'
-
+    ordering = ['-id']
 
 # details of explore page
 class article_detial(LoginRequiredMixin, DetailView):
@@ -30,64 +34,41 @@ class my_blog_list(LoginRequiredMixin, ListView):
         
     def get_queryset(self):
         current_user = self.request.user
-        return BlogPost.objects.filter(author=current_user)
+        return BlogPost.objects.filter(author=current_user).order_by('-id')
+
+
+# for adding new post
+class add_new_experience(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = BlogPost
+    form_class = BlogForm
+    template_name = 'add_new_experience.html'
+    success_message = 'Your Blog Posted Successfully !!!'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 
-# class delete_post(DeleteView):
-#     model = BlogPost
-#     success_url = 'home/'
 
 
 
-@login_required
-def add_new_experience(request):
-    if request.method == 'POST':
-        title = request.POST['title']
-        if BlogPost.objects.filter(title=title).exists():
-            messages.error(request, 'This title is already taken by other Blog post.')
-            return render(request, 'add_new_experience.html')
-        
-        company = request.POST['company']
-        job_month = request.POST['job_month'] + "-01"
-        job_offer = request.POST['job_offer']
-        job_profile = request.POST['job_profile']
-        body_content = request.POST['body_content']
-        
-        current_user = request.user
-        BlogPost.objects.create(author=current_user,company=company, month_year=job_month, job_offer=job_offer, profile=job_profile, title=title, body=body_content)
-        messages.success(request, 'Your Blog posted successfully !!')
-        return redirect('/home/')
-    return render(request, 'add_new_experience.html')
+# for delete post
+class delete_post(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = BlogPost
+    success_url = reverse_lazy('my_experiences')
 
 
 
 # for edit post
-@login_required
-def edit_post(request):
-    ed_post = BlogPost.objects.get(id=2)
-    old_title = ed_post.title
-    old_company = ed_post.company
-    old_job_month = ed_post.month_year | "F Y"
-    old_job_offer = ed_post.job_offer
-    old_job_profile = ed_post.profile
-    old_body_content = ed_post.body
+class edit_post(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = BlogPost
+    template_name = 'edit_post.html'
+    form_class = BlogForm
+    success_message = 'Your Blog Edited Successfully !!!'
+    success_url = reverse_lazy('my_experiences')
 
-    if request.method == 'POST':
-        title = request.POST['title']
-        if BlogPost.objects.filter(title=title).exists():
-            messages.error(request, 'This title is already taken by other Blog post.')
-            return render(request, 'edit_post.html')
-        
-        company = request.POST['company']
-        job_month = request.POST['job_month'] + "-01"
-        job_offer = request.POST['job_offer']
-        job_profile = request.POST['job_profile']
-        body_content = request.POST['body_content']
-        
-        current_user = request.user
-        BlogPost.objects.create(author=current_user,company=company, month_year=job_month, job_offer=job_offer, profile=job_profile, title=title, body=body_content)
-        messages.success(request, 'Your Blog posted successfully !!')
-        return redirect('/home/')
-    return render(request, 'edit_post.html', {'title': old_title, 'company': old_company, 'job_month': old_job_month, 'job_offer': old_job_offer, 'job_profile': old_job_profile, 'body_content': old_body_content})
+    def form_valid(self, form):
+        form.instance.pub_date = datetime.now()
+        return super().form_valid(form)
 

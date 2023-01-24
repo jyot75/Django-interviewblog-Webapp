@@ -66,10 +66,10 @@
     <div class="card-body">
 {%comment%}<p class="card-text">{% autoescape off %} {{post.body}} {% endautoescape %}</p>{%endcomment%}
 {% comment %} {{ post.body | truncatewords:100 }} {% endcomment %}
-      <p class="card-text">{{ post.body |safe }}</p> 
+      <p class="card-text">{{ post.body | safe }}</p> 
       <div class="d-flex justify-content-between mt-4">
         <a href={% url 'article_details' post.pk %} class="btn btn-secondary">Read Full Post</a> 
-        <p class="text-secondary">Last upadated on</p>
+        <p class="text-secondary">Last upadated: {{ post.pub_date}}</p>
       </div>
     </div>
   </div>

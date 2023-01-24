@@ -49,6 +49,20 @@
 
 
 
+{% comment %} messages {% endcomment %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+{% endif %}
+
+
+
+
+
 
 
 <h1 class="d-flex justify-content-center m-4"><u>My Experience</u></h1>
@@ -76,22 +90,53 @@
         <h3 class="fs-2">{{ art.title }}</h3>
         <h6 class=""> {{ art.author.first_name }} {{ art.author.last_name }}, {{ art.author.degree}} in {{ art.author.program}}</h6>
     </div>
-    <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <p class="">Profile: {{art.profile}}</p>
-            <small>{{ art.month_year|date:"F, Y"  }}</small>
-        </div>
-        <p> {{art.job_offer}} at {{art.company}}</p>
-        <hr>
-        <p class="mt-5 card-text fs-5">{{ art.body |safe }}</p>
-    </div>
 
-    <div class="d-flex justify-content-between">
-        <a href={% url 'edit_post' art.pk %} class="btn btn-success m-2">Edit Post</a> 
-        <a href="#" class="btn btn-danger m-2">Delete Post</a> 
+    <div class="card-body">
+      <p class="">Profile: {{art.profile}}</p>
+      <p> {{art.job_offer}} at {{art.company}} <small>(in {{ art.year }})</small> </p>
+      <hr>
+      <p class="mt-5 card-text fs-5">{% autoescape off %} {{ art.body }} {% endautoescape %}</p>
+  </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <div>
+        <a href={% url 'edit_post' art.pk %} class="btn btn-success m-3">Edit Post</a>
+        
+        {% comment %} <a href={% url 'delete_post' art.pk %} class="btn btn-danger m-3">Delete Post</a>  {% endcomment %}
+        
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Delete Post
+        </button>
+
+        </div>
+        <p class="text-secondary m-3">Last upadated: {{ art.pub_date}}</p>
     </div>
+</div>
+
+
+{% comment %} Modal {% endcomment %}
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"> Are you sure to delete this blog-post ?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form action={% url 'delete_post' art.pk %} method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger m-3">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endfor %}
 
 {% endblock content %}
+
+
+
+

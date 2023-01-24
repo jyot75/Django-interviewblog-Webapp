@@ -22,13 +22,11 @@ jyot.strftime('%B %Y') {% endcomment %}
         <h6 class=""> {{ art.author.first_name }} {{ art.author.last_name }}, {{ art.author.degree}} in {{ art.author.program}}</h6>
     </div>
     <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <p class="">Profile: {{art.profile}}</p>
-            <small>{{ art.month_year|date:"F, Y"  }}</small>
-        </div>
-        <p> {{art.job_offer}} at {{art.company}}</p>
+        <p class="">Profile: {{art.profile}}</p>
+        <p> {{art.job_offer}} at {{art.company}} <small>(in {{ art.year }})</small> </p>
         <hr>
         <p class="mt-5 card-text fs-5">{% autoescape off %} {{ art.body }} {% endautoescape %}</p>
+        <div class="d-flex justify-content-end mt-5"><p class="text-secondary">Last upadated: {{ art.pub_date}}</p></div>
     </div>
 </div>
 
@@ -39,4 +37,7 @@ jyot.strftime('%B %Y') {% endcomment %}
 
 
 {% endblock content %}
+
+
+
 

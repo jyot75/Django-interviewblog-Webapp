@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class SignupForm(UserCreationForm):
+
     first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     last_name = forms.CharField(label='Last name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     username = forms.IntegerField(label='Student ID', min_value=201900000)
@@ -26,30 +27,30 @@ class SignupForm(UserCreationForm):
 
 
 
-# class UserForm(forms.ModelForm):
+# class SignupForm(UserCreationForm):
 
 #     class Meta:
-#         model = User
-#         fields = ("first_name","last_name","username","email","password1","password2")
+#         model = NewUser
+#         fields = ('first_name', 'last_name','username', 'email', 'password1', 'password2', 'degree', 'year', 'program')
         
-#     widgets = {
-#         'first_name': forms.TextInput(attrs={'class' : 'form-control'}),
-#         'last_name': forms.TextInput(attrs={'class' : 'form-control'}),
-#         'email': forms.EmailInput(attrs={'class': 'form-control'}),
-#         'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
-#         'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
-#         'degree': forms.TextInput(attrs={'class': 'form-control'}),
-#         'year': forms.NumberInput(attrs={'class': 'form-control'}),
-#         'program': forms.TextInput(attrs={'class' : 'form-control'}),
-#     }
+#         widgets = {
+#             'first_name': forms.TextInput(attrs={'class' : 'form-control'}),
+#             'last_name': forms.TextInput(attrs={'class' : 'form-control'}),
+#             'email': forms.EmailInput(attrs={'class': 'form-control'}),
+#             'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
+#             'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
+#             'degree': forms.Select(attrs={'class': 'form-control'}),
+#             'year': forms.NumberInput(attrs={'class': 'form-control'}),
+#             'program': forms.TextInput(attrs={'class' : 'form-control'}),
+#         }
 
-#      label = {
-#         'first_name': 'First Name',
-#         'last_name': ,
-#         'email': ,
-#         'password1': ,
-#         'password2': ,
-#         'degree':,
-#         'year': ,
-#         'program': ,
-#      }
+#         labels = {
+#             'first_name': 'First Name',
+#             'last_name': 'Last Name',
+#             'email': 'E-mail',
+#             'password1': 'Password',
+#             'password2': 'Confirm Password',
+#             'degree': 'Select Degree',
+#             'year': 'Gradution Year',
+#             'program': 'Program of Study',
+#          }
