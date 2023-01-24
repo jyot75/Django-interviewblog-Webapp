@@ -7,7 +7,7 @@ class SignupForm(UserCreationForm):
 
     first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     last_name = forms.CharField(label='Last name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
-    username = forms.IntegerField(label='Student ID', min_value=201900000)
+    username = forms.IntegerField(label='Student ID', min_value=200100000)
     email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -29,6 +29,11 @@ class SignupForm(UserCreationForm):
 
 # class SignupForm(UserCreationForm):
 
+#     username = forms.IntegerField(label='Student ID', min_value=200100000)
+#     email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+#     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+#     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
 #     class Meta:
 #         model = NewUser
 #         fields = ('first_name', 'last_name','username', 'email', 'password1', 'password2', 'degree', 'year', 'program')
@@ -45,6 +50,7 @@ class SignupForm(UserCreationForm):
 #         }
 
 #         labels = {
+#             'username': 'Student ID',
 #             'first_name': 'First Name',
 #             'last_name': 'Last Name',
 #             'email': 'E-mail',
