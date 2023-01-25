@@ -4,6 +4,9 @@
 
 {% block content %}
 
+{% if user.id == post.author.id %}
+
+
 {% comment %} navbar {% endcomment %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -60,5 +63,12 @@
     </div>
 </form>
 </form>
+
+
+
+
+{% else %}
+You are not allowed to Edit this post !!!
+{% endif %}
 
 {% endblock content %}

@@ -54,7 +54,7 @@ class add_new_experience(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 
 # for delete post
-class delete_post(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class delete_post(LoginRequiredMixin, DeleteView):
     model = BlogPost
     success_url = reverse_lazy('my_experiences')
 
@@ -67,8 +67,8 @@ class edit_post(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = BlogForm
     success_message = 'Your Blog Edited Successfully !!!'
     success_url = reverse_lazy('my_experiences')
+    context_object_name = 'post'
 
     def form_valid(self, form):
         form.instance.pub_date = datetime.now()
         return super().form_valid(form)
-

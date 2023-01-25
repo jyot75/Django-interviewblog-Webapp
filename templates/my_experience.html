@@ -49,6 +49,7 @@
 
 
 
+
 {% comment %} messages {% endcomment %}
 {% if messages %}
   {% for message in messages %}
@@ -65,25 +66,16 @@
 
 
 
+
+
+
+
+
+{% comment %} Main content {% endcomment %}
+
 <h1 class="d-flex justify-content-center m-4"><u>My Experience</u></h1>
 
 {% for art in my_obj_list %}
-{% comment %} 
-  <div class="card m-4">
-    <div class="card-body">
-    <div class="d-flex justify-content-between">
-        <h2 class="card-title"> {{ post.title }} </h2>
-        <p class="card-text"><small class="text-muted">by, {{ post.author.first_name }} {{ post.author.last_name }}</small></p>
-    </div>
-      
-    <p class="card-text">{{ post.body |safe }}</p> 
-
-    <div class="d-flex justify-content-between">
-      <a href="#" class="btn btn-secondary">Edit Post</a> 
-      <a href="#" class="btn btn-danger">Delete Post</a> 
-    </div>
-  </div> {% endcomment %}
-
 
 <div class="card m-5">
     <div class="card-header">
@@ -101,10 +93,18 @@
     <div class="d-flex justify-content-between mt-4">
         <div>
         <a href={% url 'edit_post' art.pk %} class="btn btn-success m-3">Edit Post</a>
+
+        {% comment %} <form action={% url 'edit_post' art.pk %} method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger m-3">Edit Post</button>
+        </form> {% endcomment %}
+
+        {% comment %} <form action={% url 'delete_post' art.pk %} method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger m-3">Delete</button>
+        </form> {% endcomment %}
         
-        {% comment %} <a href={% url 'delete_post' art.pk %} class="btn btn-danger m-3">Delete Post</a>  {% endcomment %}
-        
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{art.pk}}">
           Delete Post
         </button>
 
@@ -114,8 +114,9 @@
 </div>
 
 
+
 {% comment %} Modal {% endcomment %}
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop{{art.pk}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -132,6 +133,8 @@
     </div>
   </div>
 </div>
+
+
 
 {% endfor %}
 
