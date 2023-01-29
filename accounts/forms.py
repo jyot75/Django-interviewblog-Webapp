@@ -8,7 +8,7 @@ class SignupForm(UserCreationForm):
     first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     last_name = forms.CharField(label='Last name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     username = forms.IntegerField(label='Student ID', min_value=200100000)
-    email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label='Institute E-mail Address', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     degree = forms.ChoiceField(label='Select Degree',choices=(("B.TECH",'B.TECH'),("M.TECH",'M.TECH'),("MSC",'MSC'))) 

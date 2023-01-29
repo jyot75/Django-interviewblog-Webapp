@@ -17,6 +17,9 @@ def register_view(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
+            email = form.cleaned_data["email"]
+            if not email.endswith('@daiict.ac.in'):
+                return render(request, 'register.html', {"form": form, "error": "Please give Institute Email Address"})
             form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]
@@ -36,9 +39,11 @@ def login_view(request):
 
     context = {}
     if request.method == 'POST':
-        email = request.POST["email"]
+        email_user = request.POST["email_user"]
         password = request.POST["password"]
-        username = NewUser.objects.get(email=email.lower()).username
+        # email = request.POST["email"]
+        # username = NewUser.objects.get(email=email.lower()).username
+        username = email_user[0:9:1]
         user = authenticate(request, username=username, password=password)
         if user is None:
             context = {"error": "Invalid email or password"}
@@ -49,6 +54,7 @@ def login_view(request):
         return redirect("/home")
 
     return render(request, "login.html", context)
+
 
 
 

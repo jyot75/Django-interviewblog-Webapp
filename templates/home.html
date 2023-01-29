@@ -30,12 +30,13 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href={% url 'edit_profile' %}>Edit Profile</a></li>
+            <li><a class="dropdown-item" href={% url 'reset_password' %}>Forgot Password</a></li>
             <li><a class="dropdown-item" href={% url 'change_pass' %}>Change Password</a></li>
           </ul>
         </li>
       </ul>
 
-      <form class="d-flex" action="logout/" method="post">
+      <form class="d-flex" action={% url 'logout' %} method="post">
         {% csrf_token %}
         <button class="btn btn-outline-danger" type="submit">LOGOUT</button>
       </form>

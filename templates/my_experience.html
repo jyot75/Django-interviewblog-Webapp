@@ -37,7 +37,7 @@
         </li>
       </ul>
 
-      <form class="d-flex" action="logout/" method="post">
+      <form class="d-flex" action={% url 'logout' %} method="post">
         {% csrf_token %}
         <button class="btn btn-outline-danger" type="submit">LOGOUT</button>
       </form>
