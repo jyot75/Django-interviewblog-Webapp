@@ -3,13 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.generic import CreateView,ListView,DetailView, DeleteView, UpdateView
 from .models import BlogPost
-# from django.utils import timezone
+from accounts.models import NewUser
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import BlogForm, ChangingPassword
+from .forms import BlogForm, ChangingPassword, EditProfileForm
 from datetime import datetime
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
+
 
 # Create your views here.
 
@@ -81,3 +82,20 @@ class MyPasswordChangeView(LoginRequiredMixin, SuccessMessageMixin, PasswordChan
     form_class = ChangingPassword
     success_message = 'Password Changed Successfully !!!'
     success_url = reverse_lazy('explore')
+
+
+
+# edit profile
+class edit_profile(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = 'edit_profile.html'
+    form_class = EditProfileForm
+    success_message = 'Profile Changes Saved Successfully !!!'
+    success_url = reverse_lazy('explore')
+
+    def get_object(self):
+        return self.request.user
+
+
+
+
+

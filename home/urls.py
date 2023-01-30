@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from accounts.views import logout_view
-from .views import list_view, article_detial, my_blog_list, add_new_experience, edit_post, delete_post, MyPasswordChangeView
+from .views import list_view, article_detial, my_blog_list, add_new_experience, edit_post, delete_post, MyPasswordChangeView, edit_profile
 
 
 urlpatterns = [
@@ -14,14 +14,15 @@ urlpatterns = [
     path('logout/', logout_view, name="logout"),
 
 
-    # change pass
+    # change password
     path('change_pass/', MyPasswordChangeView.as_view(template_name = 'password_change.html'), name='change_pass'),
 
+    # edit profile
+    path('edit_profile/', edit_profile.as_view(), name="edit_profile"),
 
-
-
+    
     path('logout/', logout_view, name="bookmarks"),
-    path('logout/', logout_view, name="edit_profile")
+    
 ]
 
 

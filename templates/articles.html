@@ -17,8 +17,8 @@ jyot.strftime('%B %Y') {% endcomment %}
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h3 class="fs-2">{{ art.title }}</h3>
-            
-            <button id="bk_tg" onclick="myfuction()" class="btn btn-outline-warning"><a href="#">Bookmark</a></button>
+            <div onclick="myfunc()"><a href="#" id="bk_tag" class="btn btn-outline-warning">Bookmark &nbsp;<i class="fa-solid fa-bookmark"></i></a></div>
+           {% comment %} <div onclick="myfunc()"><a href="#" id="bk_tag" class="btn btn-outline-warning">Bookmark</a></div> {% endcomment %}
         </div>
         <h6 class=""> {{ art.author.first_name }} {{ art.author.last_name }}, {{ art.author.degree}} in {{ art.author.program}}</h6>
     </div>
@@ -34,22 +34,16 @@ jyot.strftime('%B %Y') {% endcomment %}
 
 <a href={% url 'explore' %} class="m-4 btn btn-outline-secondary"> Back</a>
 
-
 <script>
-
-    function myfuction(){
-        let element = document.getElementById("bk_tg");
-        element.classList.toggle("btn-outline-warning");
-        if(element.firstElementChild.innerHTML == "Remove from Bookmark")
-            element.firstElementChild.innerHTML == "Bookmark"
+    function myfunc() {
+        const element = document.getElementById("bk_tag")
+        if(element.innerHTML == 'Remove from Bookmark &nbsp;<i class="fa-solid fa-bookmark"></i>')
+            element.innerHTML = 'Bookmark &nbsp;<i class="fa-solid fa-bookmark"></i>'
         else
-            element.firstElementChild.innerHTML == "Remove from Bookmark"
+            element.innerHTML = 'Remove from Bookmark &nbsp;<i class="fa-solid fa-bookmark"></i>'
     }
-
 </script>
 
+
 {% endblock content %}
-
-
-
 
