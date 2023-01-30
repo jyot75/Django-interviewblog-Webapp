@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import NewUser
 from .forms import SignupForm
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -63,15 +65,3 @@ def logout_view(request):
         logout(request)
         return redirect("/login")
 
-
-
-
-def change_pass(request):
-    if request.user.is_authenticated:
-        myuser = NewUser.objects.get(username=request.user.username)
-        myuser.set_password('jyot')
-        myuser.save()
-    else:
-        return redirect('/login')
-
-        

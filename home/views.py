@@ -6,9 +6,10 @@ from .models import BlogPost
 # from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import BlogForm
+from .forms import BlogForm, ChangingPassword
 from datetime import datetime
 from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
 
 # Create your views here.
 
@@ -72,3 +73,11 @@ class edit_post(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def form_valid(self, form):
         form.instance.pub_date = datetime.now()
         return super().form_valid(form)
+
+
+
+# password change
+class MyPasswordChangeView(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
+    form_class = ChangingPassword
+    success_message = 'Password Changed Successfully !!!'
+    success_url = reverse_lazy('explore')

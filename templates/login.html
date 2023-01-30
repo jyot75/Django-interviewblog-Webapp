@@ -18,7 +18,9 @@
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
         </div>
-        <div class="mb-5">
+
+        <a class="text-muted" href={% url 'reset_password' %}>Forgotten Password !?</a>
+        <div class="mb-5 d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">LOGIN</button>
         </div>
         <a href={% url 'register' %}>don't have account, Register here</a>

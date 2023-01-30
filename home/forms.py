@@ -1,5 +1,7 @@
 from django import forms
 from .models import BlogPost
+from accounts.models import NewUser
+from django.contrib.auth.forms import PasswordChangeForm
 
 class BlogForm(forms.ModelForm):
     class Meta:
@@ -19,3 +21,13 @@ class BlogForm(forms.ModelForm):
             'profile': 'Job Profile',
             'body': ''
         }
+
+
+class ChangingPassword(PasswordChangeForm):
+     old_password = forms.CharField(label='Old password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+     new_password1 = forms.CharField(label='New password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+     new_password2 = forms.CharField(label='Confirm new password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+     class Meta:
+        model = NewUser
+        fields = ('old_password', 'new_password1', 'new_password2')

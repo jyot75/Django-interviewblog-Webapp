@@ -30,7 +30,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href={% url 'edit_profile' %}>Edit Profile</a></li>
-            <li><a class="dropdown-item" href={% url 'reset_password' %}>Forgot Password</a></li>
+            {% comment %} <li><a class="dropdown-item" href={% url 'reset_password' %}>Forgot Password</a></li> {% endcomment %}
             <li><a class="dropdown-item" href={% url 'change_pass' %}>Change Password</a></li>
           </ul>
         </li>
