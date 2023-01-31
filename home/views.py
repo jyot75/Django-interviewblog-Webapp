@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.generic import CreateView,ListView,DetailView, DeleteView, UpdateView
@@ -27,6 +27,16 @@ class article_detial(LoginRequiredMixin, DetailView):
     template_name = 'articles.html'
     context_object_name = 'art'
 
+    def get_context_data(self, *args, **kwargs):
+        context =  super(article_detial, self).get_context_data(**kwargs)
+        stuff = get_object_or_404(BlogPost, id=self.kwargs['pk'])
+        value = False
+        if stuff.bookmark.filter(id=self.request.user.id).exists():
+            value = True
+        context['value'] = value
+        return context
+
+
 
 # my experiences page
 class my_blog_list(LoginRequiredMixin, ListView):
@@ -37,6 +47,7 @@ class my_blog_list(LoginRequiredMixin, ListView):
     def get_queryset(self):
         current_user = self.request.user
         return BlogPost.objects.filter(author=current_user).order_by('-id')
+
 
 
 # for adding new post
@@ -99,3 +110,27 @@ class edit_profile(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 
+
+
+# add or remove bookmark
+@login_required
+def bookmark_toggle(request, pk):
+    post = get_object_or_404(BlogPost, id=pk)
+    if post.bookmark.filter(id=request.user.id).exists():
+        post.bookmark.remove(request.user)
+    else:
+        post.bookmark.add(request.user)  
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+
+
+# list bookmarked post
+@login_required
+def bookmark_list(request):
+    only_bked = []
+    for i in BlogPost.objects.all():
+        if i.bookmark.filter(id=request.user.id).exists():
+            only_bked.insert(0,i)
+
+    return render(request, 'bookmark.html', {'obj_list': only_bked})

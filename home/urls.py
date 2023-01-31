@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from accounts.views import logout_view
-from .views import list_view, article_detial, my_blog_list, add_new_experience, edit_post, delete_post, MyPasswordChangeView, edit_profile
+from .views import list_view, article_detial, my_blog_list, add_new_experience, edit_post, delete_post, MyPasswordChangeView, edit_profile, bookmark_toggle, bookmark_list
 
 
 urlpatterns = [
@@ -20,9 +20,13 @@ urlpatterns = [
     # edit profile
     path('edit_profile/', edit_profile.as_view(), name="edit_profile"),
 
-    
-    path('logout/', logout_view, name="bookmarks"),
-    
+
+
+    # adding or removing bookmark
+    path('bookmark_toggle/<int:pk>', bookmark_toggle, name="bookmark_toggle"),
+
+    # show bookmark list
+    path('bookmarks/', bookmark_list, name="bookmarks")
 ]
 
 

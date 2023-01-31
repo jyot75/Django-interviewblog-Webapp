@@ -15,6 +15,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=255, null=True, blank=False, unique=True)
     body = RichTextField(null=True, blank=False)
     pub_date = models.DateTimeField(auto_now_add=True)
+    bookmark = models.ManyToManyField(NewUser, related_name='bookmark', default=None, blank=True)
     
     def get_absolute_url(self):
         return reverse('explore')

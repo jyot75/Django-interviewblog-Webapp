@@ -17,8 +17,9 @@ jyot.strftime('%B %Y') {% endcomment %}
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h3 class="fs-2">{{ art.title }}</h3>
-            <div onclick="myfunc()"><a href="#" id="bk_tag" class="btn btn-outline-warning">Bookmark &nbsp;<i class="fa-solid fa-bookmark"></i></a></div>
-           {% comment %} <div onclick="myfunc()"><a href="#" id="bk_tag" class="btn btn-outline-warning">Bookmark</a></div> {% endcomment %}
+
+            <div onclick="myfunc()"><a href={% url 'bookmark_toggle' art.pk %} id="bk_tag" class="btn btn-outline-warning">{{ value|yesno:"Remove from Bookmark,Bookamark,Nothing" }} &nbsp;<i class="fa-solid fa-bookmark"></i></a></div>
+
         </div>
         <h6 class=""> {{ art.author.first_name }} {{ art.author.last_name }}, {{ art.author.degree}} in {{ art.author.program}}</h6>
     </div>

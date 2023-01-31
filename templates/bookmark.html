@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Bookmarks{% endblock title %}\
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">Blog-it!!!</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href={% url 'explore' %}>Explore</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'add_new_experience' %}>Add New Experience</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'my_experiences' %}>My Experiences</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'bookmarks' %}>Bookmarks</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href={% url 'edit_profile' %}>Edit Profile</a></li>
+              <li><a class="dropdown-item" href={% url 'change_pass' %}>Change Password</a></li>
+            </ul>
+          </li>
+        </ul>
+  
+        <form class="d-flex" action={% url 'logout' %} method="post">
+          {% csrf_token %}
+          <button class="btn btn-outline-danger" type="submit">LOGOUT</button>
+        </form>
+  
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+{% for art in obj_list %}
+
+<div class="card m-4">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <h3 class="fs-2">{{ art.title }}</h3>
+
+            <div onclick="myfunc()"><a href={% url 'bookmark_toggle' art.pk %} id="bk_tag" class="btn btn-outline-warning">Remove from Bookmark &nbsp;<i class="fa-solid fa-bookmark"></i></a></div>
+
+        </div>
+        <h6 class=""> {{ art.author.first_name }} {{ art.author.last_name }}, {{ art.author.degree}} in {{ art.author.program}}</h6>
+    </div>
+    <div class="card-body">
+        <p class="">Profile: {{art.profile}}</p>
+        <p> {{art.job_offer}} at {{art.company}} <small>(in {{ art.year }})</small> </p>
+        <hr>
+        <p class="mt-5 card-text fs-5">{% autoescape off %} {{ art.body }} {% endautoescape %}</p>
+        <div class="d-flex justify-content-end mt-5"><p class="text-secondary">Last upadated: {{ art.pub_date}}</p></div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+{% endblock content %}
+
+
+
