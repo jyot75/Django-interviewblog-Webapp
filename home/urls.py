@@ -26,7 +26,8 @@ urlpatterns = [
     path('bookmark_toggle/<int:pk>', bookmark_toggle, name="bookmark_toggle"),
 
     # show bookmark list
-    path('bookmarks/', bookmark_list, name="bookmarks")
+    path('bookmarks/', bookmark_list, name="bookmarks"),
+
 ]
 
 

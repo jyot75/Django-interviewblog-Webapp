@@ -10,7 +10,8 @@ from .forms import BlogForm, ChangingPassword, EditProfileForm
 from datetime import datetime
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
-
+# from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters.rest_framework import generics
 
 # Create your views here.
 
@@ -20,6 +21,18 @@ class list_view(LoginRequiredMixin, ListView):
     template_name = 'home.html'
     context_object_name = 'obj_list'
     ordering = ['-id']
+    # filter_backends = [DjangoFilterBackend]
+    # search_fields = ['^title']
+
+    def get_queryset(self):
+        search = self.request.GET.get('search', '').lower()
+        searched = []
+        for i in BlogPost.objects.all():
+            if search in i.title.lower():
+                searched.insert(0,i)
+        return searched
+
+
 
 # details of explore page
 class article_detial(LoginRequiredMixin, DetailView):
@@ -46,7 +59,18 @@ class my_blog_list(LoginRequiredMixin, ListView):
         
     def get_queryset(self):
         current_user = self.request.user
-        return BlogPost.objects.filter(author=current_user).order_by('-id')
+        only_my =  BlogPost.objects.filter(author=current_user).order_by('-id')
+        
+
+        # SEARCH FUNCTIONLITY in my experience
+        search = self.request.GET.get('search', '').lower()
+        searched = []
+        for i in only_my:
+            if search in i.title.lower():
+                searched.append(i)
+        return searched
+
+
 
 
 
@@ -125,6 +149,7 @@ def bookmark_toggle(request, pk):
 
 
 
+
 # list bookmarked post
 @login_required
 def bookmark_list(request):
@@ -133,4 +158,11 @@ def bookmark_list(request):
         if i.bookmark.filter(id=request.user.id).exists():
             only_bked.insert(0,i)
 
-    return render(request, 'bookmark.html', {'obj_list': only_bked})
+    # SEARCH FUNCTIONLITY in bookmark
+    search = request.GET.get('search', '').lower()
+    searched = []
+    for i in only_bked:
+        if search in i.title.lower():
+            searched.append(i)
+
+    return render(request, 'bookmark.html', {'obj_list': searched})

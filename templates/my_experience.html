@@ -52,15 +52,28 @@
 
 {% comment %} messages {% endcomment %}
 {% if messages %}
-  {% for message in messages %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>{{message}}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endfor %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 {% endif %}
 
 
+
+
+<h1 class="d-flex justify-content-center m-4"><u>My Experiences</u></h1>
+
+
+{% comment %} search bar {% endcomment %}
+
+<div class="bg-light m-5">
+  <form class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</div>
 
 
 
@@ -72,8 +85,6 @@
 
 
 {% comment %} Main content {% endcomment %}
-
-<h1 class="d-flex justify-content-center m-4"><u>My Experience</u></h1>
 
 {% for art in my_obj_list %}
 
