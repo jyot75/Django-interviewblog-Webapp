@@ -32,7 +32,6 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href={% url 'edit_profile' %}>Edit Profile</a></li>
-            {% comment %} <li><a class="dropdown-item" href={% url 'reset_password' %}>Forgot Password</a></li> {% endcomment %}
             <li><a class="dropdown-item" href={% url 'change_pass' %}>Change Password</a></li>
           </ul>
         </li>
@@ -65,13 +64,17 @@
 {% comment %} search bar {% endcomment %}
 
   <div class="bg-light m-5">
-    <form class="d-flex" role="search" action={% url 'explore' %}>
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+    <form class="d-flex" role="search" action={% url 'explore' %} onsubmit='myfunc()'>
+      <input class="form-control me-2" type="search" id='my_search' placeholder="Search" aria-label="Search" name="search">
       <button class="btn btn-outline-success" type="submit">Search</button>
+      <a class="btn btn-outline-secondary mx-2" type="button" href={% url 'explore' %}>Reset</a>
     </form>
   </div>
 
 
+
+
+{% comment %} blog posts {% endcomment %}
 
 {% for post in obj_list %}
 
@@ -90,8 +93,8 @@
       </div>
     </div>
   </div>
-
-{% endfor %}
-
-
+  
+  {% endfor %}
+  
+  
 {% endblock content %}

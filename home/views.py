@@ -10,8 +10,6 @@ from .forms import BlogForm, ChangingPassword, EditProfileForm
 from datetime import datetime
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
-# from django_filters.rest_framework import DjangoFilterBackend
-# from django_filters.rest_framework import generics
 
 # Create your views here.
 
@@ -21,15 +19,11 @@ class list_view(LoginRequiredMixin, ListView):
     template_name = 'home.html'
     context_object_name = 'obj_list'
     ordering = ['-id']
-    # filter_backends = [DjangoFilterBackend]
-    # search_fields = ['^title']
 
+    # search functionaliy in home page (using __icontain, without for loop)
     def get_queryset(self):
-        search = self.request.GET.get('search', '').lower()
-        searched = []
-        for i in BlogPost.objects.all():
-            if search in i.title.lower():
-                searched.insert(0,i)
+        search = self.request.GET.get('search', '')
+        searched = BlogPost.objects.filter(title__icontains=search).order_by('-id')
         return searched
 
 
@@ -60,14 +54,10 @@ class my_blog_list(LoginRequiredMixin, ListView):
     def get_queryset(self):
         current_user = self.request.user
         only_my =  BlogPost.objects.filter(author=current_user).order_by('-id')
-        
-
-        # SEARCH FUNCTIONLITY in my experience
-        search = self.request.GET.get('search', '').lower()
-        searched = []
-        for i in only_my:
-            if search in i.title.lower():
-                searched.append(i)
+         
+        # SEARCH FUNCTIONLITY in my experience (using __icontain, without for loop)
+        search = self.request.GET.get('search', '')
+        searched = only_my.filter(title__icontains=search).order_by('-id')
         return searched
 
 

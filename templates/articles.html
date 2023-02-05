@@ -4,14 +4,50 @@
 
 {% block content %}
 
-{% comment %} <h1> {{ art.title }} </h1>
-<p> by , {{ art.author.first_name }} {{ art.author.last_name }} ({{ art.author.degree}},{{ art.author.program}}) </p>
-<h4> {{ art.body }} </h4> {% endcomment %}
+{% comment %} navbar {% endcomment %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">Blog-it!!!</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href={% url 'explore' %}>Explore</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'add_new_experience' %}>Add New Experience</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'my_experiences' %}>My Experiences</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'bookmarks' %}>Bookmarks</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href={% url 'edit_profile' %}>Edit Profile</a></li>
+              <li><a class="dropdown-item" href={% url 'change_pass' %}>Change Password</a></li>
+            </ul>
+          </li>
+        </ul>
+  
+        <form class="d-flex" action={% url 'logout' %} method="post">
+          {% csrf_token %}
+          <button class="btn btn-outline-danger" type="submit">LOGOUT</button>
+        </form>
+  
+      </div>
+    </div>
+  </nav>
 
-{% comment %} jyot = {{ art.month_year }}
-jyot.strftime('%B %Y') {% endcomment %}
 
 
+{% comment %} detailview content {% endcomment %}
 
 <div class="card m-4">
     <div class="card-header">
