@@ -38,6 +38,7 @@ class ChangingPassword(PasswordChangeForm):
 
 
 class EditProfileForm(UserChangeForm):
+    password = None
     first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control mb-3'}))
     last_name = forms.CharField(label='Last name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control mb-4'}))
     username = forms.IntegerField(label='Student ID', min_value=200100000)
