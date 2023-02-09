@@ -1,23 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %} Register {% endblock title %}
+{% block title %}BlogIt • Register {% endblock title %}
 
 
 {% block content %}
 
 {% if error %}
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong>{{error}}</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}
 
+
+<h2 class="my-3 mx-5"><u>Register</u></h2>
 <form class="m-5" method='post' action="/register/">
     {% csrf_token %}
     
     {{ form.as_p }}
 
-    <div class="form-group m-4">
+    <div class="mb-5 d-flex justify-content-center">
         <button class="btn btn-primary" type="submit">REGISTER</button>
     </div>
 

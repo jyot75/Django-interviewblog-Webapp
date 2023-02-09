@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
-{% block title %}Login{% endblock title %}
+{% block title %}BlogIt • Login{% endblock title %}
 
 {% block content %} 
 
 {% if error %}
-    <p class="text-danger">{{error}}</p>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 {% endif %}
 
+<h2 class="my-2 mx-5"><u>Login</u></h2>
 <div class="m-5">
     <form  method='post' action='/login/'>
         {% csrf_token %}
