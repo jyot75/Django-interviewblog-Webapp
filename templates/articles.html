@@ -63,7 +63,7 @@
         <p class="">Profile: {{art.profile}}</p>
         <p> {{art.job_offer}} at {{art.company}} <small>(in {{ art.year }})</small> </p>
         <hr>
-        <p class="mt-5 card-text fs-5">{% autoescape off %} {{ art.body }} {% endautoescape %}</p>
+        <div class="mt-5 card-text fs-5">{% autoescape off %} {{ art.body }} {% endautoescape %}</div>
         <div class="d-flex justify-content-end mt-5"><p class="text-secondary">Last upadated: {{ art.pub_date}}</p></div>
     </div>
 </div>

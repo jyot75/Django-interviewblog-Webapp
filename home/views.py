@@ -24,6 +24,8 @@ class list_view(LoginRequiredMixin, ListView):
     def get_queryset(self):
         search = self.request.GET.get('search', '')
         searched = BlogPost.objects.filter(title__icontains=search).order_by('-id')
+        # if not searched:
+        #     searched = BlogPost.objects.filter(company__icontains=search).order_by('-id')
         return searched
 
 
