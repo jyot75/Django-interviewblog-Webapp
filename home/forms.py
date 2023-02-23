@@ -2,6 +2,7 @@ from django import forms
 from .models import BlogPost
 from accounts.models import NewUser
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
+from django.core.exceptions import ValidationError
 
 class BlogForm(forms.ModelForm):
     class Meta:
@@ -39,14 +40,23 @@ class ChangingPassword(PasswordChangeForm):
 
 class EditProfileForm(UserChangeForm):
     password = None
-    first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control mb-3'}))
-    last_name = forms.CharField(label='Last name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control mb-4'}))
+    first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    last_name = forms.CharField(label='Last name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
     username = forms.IntegerField(label='Student ID', min_value=200100000)
-    email = forms.EmailField(label='Institute E-mail Address', widget=forms.EmailInput(attrs={'class': 'form-control mb-4'}))
+    email = forms.EmailField(label='Institute E-mail Address', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     degree = forms.ChoiceField(label='Select Degree',choices=(("B.TECH",'B.TECH'),("M.TECH",'M.TECH'),("MSC",'MSC'))) 
     year = forms.IntegerField(label='Gradution Year', min_value=2021)
-    program = forms.CharField(label='Program of Study', widget=forms.TextInput(attrs={'class' : 'form-control mb-4'}))
+    program = forms.CharField(label='Program of Study', widget=forms.TextInput(attrs={'class' : 'form-control'}))
     
     class Meta:
         model = NewUser
         fields = ('first_name', 'last_name','username', 'email', 'degree', 'year', 'program')
+
+    def clean(self):
+        cleaned_data = super(EditProfileForm, self).clean()
+        email = cleaned_data.get("email")
+        if not email.endswith('@daiict.ac.in'):
+            self.add_error('email','Please give your Institute Email Address')
+    
+
+    

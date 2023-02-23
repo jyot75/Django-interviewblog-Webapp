@@ -2,7 +2,6 @@ from django import forms
 from .models import NewUser
 from django.contrib.auth.forms import UserCreationForm
 
-
 class SignupForm(UserCreationForm):
 
     first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'class' : 'form-control'}))
@@ -19,10 +18,11 @@ class SignupForm(UserCreationForm):
         model = NewUser
         fields = ('first_name', 'last_name','username', 'email', 'password1', 'password2', 'degree', 'year', 'program')
 
-
-
-
-
+    def clean(self):
+        cleaned_data = super(SignupForm, self).clean()
+        email = cleaned_data.get("email")
+        if not email.endswith('@daiict.ac.in'):
+            self.add_error('email','Please give your Institute Email Address')
 
 
 

@@ -19,10 +19,6 @@ def register_view(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data["email"]
-            if not email.endswith('@daiict.ac.in'):
-                messages.error(request, "Please give your Institute Email Address")
-                return render(request, 'register.html', {"form": form})
             form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password1"]
@@ -30,9 +26,6 @@ def register_view(request):
             login(request,thisuser)
             messages.success(request, 'Account created successfully for Blog-it!!!')
             return redirect('/home')
-        else:
-            for error in list(form.errors.values()):
-                messages.error(request, error)
         
     return render(request, 'register.html', {"form": form})
 

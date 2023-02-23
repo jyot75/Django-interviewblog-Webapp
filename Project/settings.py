@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'accounts',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'ckeditor'
 ]
 
@@ -144,8 +146,14 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'accounts.NewUser'
 
 
-# SMTP configuration
 
+# crispy form
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
+
+# SMTP configuration
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
